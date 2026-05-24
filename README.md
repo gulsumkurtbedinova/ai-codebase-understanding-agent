@@ -12,24 +12,7 @@ AI Codebase Understanding Agent
 
 
 Структура проекта:
-
-github-code-agent/
-├── app/
-│   ├── main.py             # FastAPI приложение, эндпоинты
-│   ├── embeddings/
-│   │   └── embedder.py     #OpenAIEmbeddings + ChromaDB
-│   ├── ingestion/
-│   │   └── repo_loader.py    #клонирование репозиториев
-│   ├── parsing/
-│   │   └── code_parser.py    #чтение файлов, разбиение
-│   ├── retrieval/
-│   │   └── retriever.py      #поиск релевантных фрагментов
-│   └── agents/
-│       └── llm_agent.py      #вызов gpt 4o mini
-├── repos/                   # клонированные репозитории
-├── chroma_db/              #векторная база данных
-├── .env                    #переменные окружения
-└── requirements.txt
+<img width="518" height="687" alt="image" src="https://github.com/user-attachments/assets/bd33fb16-3dae-4c4d-949a-a48812dab820" />
 
 
 
