@@ -7,33 +7,57 @@ AI Codebase Understanding Agent
 Код индексируется заранее, потом превращается в векторы, они сохранаются в бд. Ищем по смыслу и отдаем AL только важное (только нужные куски кода).
 
 Репозиторий на GitHub –>Клонируем локально (для работы с GitHub используется GitPython ) –> Разбираем по файлам–> Создаём embedding-векторы (для превращения кода в векторы text-embedding-3-small ) –>  Храним в ChromaDB –>  Ищем по смыслу–> Передаём в GPT-4o-mini (испоользуются библиотеки LangChain / LangGraph) –> Получаем ответ
+
 То есть: система клонирует GitHub‑репозиторий, разбивает код на смысловые фрагменты, превращает их в векторные представления (эмбединги) через модель text‑embedding‑3‑small, сохраняет векторы в ChromaDB, а затем по вопросу пользователя выполняет семантический поиск релевантных фрагментов и передаёт их в  gpt 4o mini для генерации ответа 
+
 
 Структура проекта:
 
 github-code-agent/
+
 ├── app/
+
 │   ├── main.py             # FastAPI приложение, эндпоинты
+
 │   ├── embeddings/
+
 │   │   └── embedder.py     #OpenAIEmbeddings + ChromaDB
+
 │   ├── ingestion/
+
 │   │   └── repo_loader.py    #клонирование репозиториев
+
 │   ├── parsing/
+
 │   │   └── code_parser.py    #чтение файлов, разбиение
+
 │   ├── retrieval/
+
 │   │   └── retriever.py      #поиск релевантных фрагментов
+
 │   └── agents/
+
 │       └── llm_agent.py      #вызов gpt 4o mini
+
 ├── repos/                   # клонированные репозитории
+
 ├── chroma_db/              #векторная база данных
+
 ├── .env                    #переменные окружения
+
 └── requirements.txt
+
+
 
 
 1) пользователь загружает репозиторий через /ingest:
 <img width="1901" height="2376" alt="image" src="https://github.com/user-attachments/assets/81569051-6932-40f8-ba97-d9ae7324c7a5" />
+
+
 2) выполняет индексацию через /index:
 <img width="1206" height="902" alt="image" src="https://github.com/user-attachments/assets/a598d39c-728c-4339-a122-cec443c1df6f" />
+
+
 3) задаёт вопросы через /ask (можно задавать многократно, т е без повторной индексации)
 <img width="1849" height="2560" alt="image" src="https://github.com/user-attachments/assets/6a07abd6-96c3-4a4a-a15e-3a8d58cbe8a3" />
 
